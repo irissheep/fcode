@@ -1,26 +1,41 @@
 {
   "app": {
-//    "signingConfigs": [
-//      {
-//        "name": "default",
-//        "type": "HarmonyOS",
-//        "material": {
-//          "certpath": "C:\\Users\\海跃智讯\\.ohos\\config\\auto_debug_task4_com.example.myapplication_150086000130545293.cer",
-//          "storePassword": "0000001A34EE2C9391B0726EE9A3D92836606B3CF49AA9AF01A3426D0B3CB198DD103628427EADCF0990",
-//          "keyAlias": "debugKey",
-//          "keyPassword": "0000001ADE63B41C2554C97233BBE4875C28ECCBD9DB962B23C152080CB7152758E319C14B59018A4212",
-//          "profile": "C:\\Users\\海跃智讯\\.ohos\\config\\auto_debug_task4_com.example.myapplication_150086000130545293.p7b",
-//          "signAlg": "SHA256withECDSA",
-//          "storeFile": "C:\\Users\\海跃智讯\\.ohos\\config\\auto_debug_task4_com.example.myapplication_150086000130545293.p12"
-//        }
-//      }
-//    ],
+    //    "signingConfigs": [
+    //      {
+    //        "name": "default",
+    //        "type": "HarmonyOS",
+    //        "material": {
+    //          "certpath": "C:\\Users\\海跃智讯\\.ohos\\config\\auto_debug_task4_com.example.myapplication_150086000130545293.cer",
+    //          "storePassword": "0000001A34EE2C9391B0726EE9A3D92836606B3CF49AA9AF01A3426D0B3CB198DD103628427EADCF0990",
+    //          "keyAlias": "debugKey",
+    //          "keyPassword": "0000001ADE63B41C2554C97233BBE4875C28ECCBD9DB962B23C152080CB7152758E319C14B59018A4212",
+    //          "profile": "C:\\Users\\海跃智讯\\.ohos\\config\\auto_debug_task4_com.example.myapplication_150086000130545293.p7b",
+    //          "signAlg": "SHA256withECDSA",
+    //          "storeFile": "C:\\Users\\海跃智讯\\.ohos\\config\\auto_debug_task4_com.example.myapplication_150086000130545293.p12"
+    //        }
+    //      }
+    //    ],
     "compileSdkVersion": 9,
     "compatibleSdkVersion": 9,
     "products": [
       {
         "name": "default",
-        "signingConfig": "default",
+        "signingConfig": "default"
+      }
+    ],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "C:\\Users\\davius\\.ohos\\config\\auto_debug_SalesNewMaster_com.example.myapplication_30086000648491250.cer",
+          "storePassword": "0000001B5682A8F04D16799E5AC4B0B38F8B252AA02A6544872968495457F9121DDBC50CA1E137AFAF3F61",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B307C2500AF2B6494640F1B83B64277BA8E5688AEDBD58F3E315822FFEA607FD1CDC01A25639DE9",
+          "profile": "C:\\Users\\davius\\.ohos\\config\\auto_debug_SalesNewMaster_com.example.myapplication_30086000648491250.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "C:\\Users\\davius\\.ohos\\config\\auto_debug_SalesNewMaster_com.example.myapplication_30086000648491250.p12"
+        }
       }
     ]
   },

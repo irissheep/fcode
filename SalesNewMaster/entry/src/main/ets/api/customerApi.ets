@@ -4,7 +4,7 @@ import {goodsResType} from '../typeDeclare/responseType'
 class CustomerAPI {
   // 商品分页
   productPageApi(params: object): Promise<goodsResType> {
-    return new HttpUtils().get('/product/page', params);
+    return HttpUtils.getInstance().get('/product/page', params);
   }
   // // 商品列表  /product/list
   // productListApi(params: object): Promise<void> {

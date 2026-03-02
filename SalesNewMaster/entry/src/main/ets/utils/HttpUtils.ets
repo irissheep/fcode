@@ -1,15 +1,14 @@
 import http from '@ohos.net.http';
 import router from '@ohos.router';
 import promptAction from '@ohos.promptAction';
-import { DEFAULT_BASE_URL } from './config.data';
 
 // 后端服务器地址配置
-// 优先使用AppStorage中配置的BASE_URL，如果没有则使用config.data中的默认值
-// Android模拟器：使用 http://10.0.2.2:9999
+// 优先使用AppStorage中配置的BASE_URL，如果没有则使用默认值
+// Android模拟器：使用 http://10.0.2.2:9999（当前默认值）
 // 本地浏览器调试：使用 http://localhost:9999
 // 真机调试：使用电脑IP地址，例如 http://192.168.1.100:9999
 // 远程服务器：使用 http://42.193.243.96:9999
-let BASE_URL = AppStorage.Get('BASE_URL') as string || DEFAULT_BASE_URL;
+let BASE_URL = AppStorage.Get('BASE_URL') as string || 'http://10.0.2.2:9999'
 const TAG: string = '[HttpUtils]'
 
 
@@ -36,13 +35,12 @@ export default class HttpUtils {
     }
   }
 
-  // 删除单例模式实现
-  // static getInstance(): HttpUtils {
-  //   if (HttpUtils.instance == null) {
-  //     HttpUtils.instance = new HttpUtils();
-  //   }
-  //   return HttpUtils.instance;
-  // }
+  static getInstance(): HttpUtils {
+    if (HttpUtils.instance == null) {
+      HttpUtils.instance = new HttpUtils();
+    }
+    return HttpUtils.instance;
+  }
 
   setReadTimeout(readTimeout: number) {
     this.options.readTimeout = readTimeout;
@@ -92,7 +90,7 @@ export default class HttpUtils {
 
   sendRequest<T>(url: string): Promise<T> {
     // 每次请求前重新获取BASE_URL，支持动态切换
-    BASE_URL = AppStorage.Get('BASE_URL') as string || DEFAULT_BASE_URL;
+    BASE_URL = AppStorage.Get('BASE_URL') as string || 'http://localhost:9999'
     
     console.log('[HttpUtils] 请求URL:', url)
     console.log('[HttpUtils] 后端服务器:', BASE_URL)

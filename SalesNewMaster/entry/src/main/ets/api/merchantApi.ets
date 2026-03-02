@@ -19,92 +19,92 @@ import {
 class MerchantAPI {
   // 设备分页
   deviceManageApi(params: object): Promise<deviceResType> {
-    return new HttpUtils().get('/device/page', params);
+    return HttpUtils.getInstance().get('/device/page', params);
   }
 
   // 商品列表名称
   getGoodsNameApi(): Promise<goodsNameResType> {
-    return new HttpUtils().get('/product/listName',{});
+    return HttpUtils.getInstance().get('/product/listName',{});
   }
 
   // 商品补货-开始
   supplyGoodsStartApi(params: object): Promise<responseType> {
-    return new HttpUtils().get('/product/replenishment', params);
+    return HttpUtils.getInstance().get('/product/replenishment', params);
   }
 
   // 商品补货-提交
   supplyGoodsFinishApi(data: object): Promise<responseType> {
-    return new HttpUtils().post('/product/replenishment', data);
+    return HttpUtils.getInstance().post('/product/replenishment', data);
   }
 
   // 商品详情
   goodsDetailApi(params: object): Promise<deviceDetailResType> {
-    return new HttpUtils().get('/product/detail', params);
+    return HttpUtils.getInstance().get('/product/detail', params);
   }
 
   //设备列表 包含货架和格子两级
   shelfListLApi(params?: object): Promise<deviceListResType> {
-    return new HttpUtils().get('/device/list', params);
+    return HttpUtils.getInstance().get('/device/list', params);
   }
 
   // 新增或者修改商品
   submitGoodsApi(data: object): Promise<responseType> {
-    return new HttpUtils().post('/product/submit', data);
+    return HttpUtils.getInstance().post('/product/submit', data);
   }
 
   // 商品销售数量统计
   saleNumberApi(params: object): Promise<saleNumberResType> {
-    return new HttpUtils().get('/statistics/numberCount', params);
+    return HttpUtils.getInstance().get('/statistics/numberCount', params);
   }
 
   //用户选购行为统计
   behaviorApi(params: object): Promise<behaviorResType> {
-    return new HttpUtils().get('/statistics/purchaseBehavior', params);
+    return HttpUtils.getInstance().get('/statistics/purchaseBehavior', params);
   }
 
   //商品销售趋势
   sellTrendApi(params: object): Promise<sellTrendResType> {
-    return new HttpUtils().get('/statistics/saleTrend', params);
+    return HttpUtils.getInstance().get('/statistics/saleTrend', params);
   }
 
   //商品库存统计
   inventoryApi(): Promise<data4ResType> {
-    return new HttpUtils().get('/statistics/inventory',{});
+    return HttpUtils.getInstance().get('/statistics/inventory',{});
   }
 
   // 销售统计
   salesApi(): Promise<SalesResType> {
-    return new HttpUtils().get('/statistics/saleCount',{});
+    return HttpUtils.getInstance().get('/statistics/saleCount',{});
   }
 
   // 销量排行
   SaleRankApi(params: object): Promise<SaleRankResType> {
-    return new HttpUtils().get('/statistics/SaleRank', params);
+    return HttpUtils.getInstance().get('/statistics/SaleRank', params);
   }
 
   // 补货预警
   replenishWarnApi(): Promise<warnResType> {
-    return new HttpUtils().get('/product/replenishWarn');
+    return HttpUtils.getInstance().get('/product/replenishWarn');
   }
 
   //设备异常
   deviceWarnApi(): Promise<warnResType> {
-    return new HttpUtils().get('/device/deviceWarn',{});
+    return HttpUtils.getInstance().get('/device/deviceWarn',{});
   }
 
   // 账户列表
   getUserListApi(): Promise<userListResType> {
-    return new HttpUtils().get('/blade-system/user/getUserList');
+    return HttpUtils.getInstance().get('/blade-system/user/getUserList');
   }
 
   // 处置账单
   handleBillApi(data: object): Promise<responseType> {
-    return new HttpUtils().post('/bill/handleBill',data);
+    return HttpUtils.getInstance().post('/bill/handleBill',data);
   }
 
   // 账单详情
   billDetailApi(id: string): Promise<billDetailResType> {
-    return new HttpUtils().get(`/bill/detail?id=${id}`);
+    return HttpUtils.getInstance().get(`/bill/detail?id=${id}`);
   }
 }
 
