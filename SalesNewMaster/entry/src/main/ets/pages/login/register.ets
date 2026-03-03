@@ -8,20 +8,76 @@ struct Register {
   @State account: string = ''
   @State password: string = ''
   @State confirmPwd: string = ''
+  @State logoScale: number = 1
+  onPageShow() {
+    if (AppStorage.Get('token')) {
+      router.replaceUrl({url:'pages/common/index'})
+    }
+    // 启动logo动画
+    this.animateLogo()
+  }
+
+  // animateLogo() {
+  //   animateTo({
+  //     duration: 1000,
+  //     curve: Curve.EaseInOut,
+  //     iterations: 1
+  //   }, () => {
+  //     this.logoScale = 1.1
+  //   }, () => {
+  //     animateTo({
+  //       duration: 800,
+  //       curve: Curve.EaseInOut
+  //     }, () => {
+  //       this.logoScale = 1
+  //     })
+  //   })
+  // }
+  animateLogo() {
+    animateTo({
+      duration: 1000,
+      curve: Curve.EaseInOut,
+      iterations: 1
+    }, () => {
+      this.logoScale = 1.1;
+
+      // 在第一个动画完成后，启动第二个动画
+      animateTo({
+        duration: 800,
+        curve: Curve.EaseInOut
+      }, () => {
+        this.logoScale = 1;
+      });
+    });
+  }
 
   build() {
 
     Column() {
       Navigation() {
         // logo图标
+        // Image($r("app.media.logo"))
+        //   .width(80)
+        //   .height(80)
+        //   .borderRadius(50)
+        //   .margin({ bottom: 20 ,top: 20})
         Image($r("app.media.logo"))
-          .width(80)
-          .height(80)
+          .width(100)
+          .height(100)
           .borderRadius(50)
-          .margin({ bottom: 20 ,top: 20})
+          .margin({ bottom: 30 })
+          .scale({ x: this.logoScale, y: this.logoScale })
+          .shadow({
+            radius: 10,
+            color: 'rgba(0, 0, 0, 0.2)',
+            offsetX: 0,
+            offsetY: 5
+          })
+
         Column() {
           Column() {
             TextInput({ placeholder: '请输入账户' })
+              .placeholderColor('rgba(255, 255, 255, 0.7)')
               .maxLength(20)
               .inputTextStyle()
               .onChange((value) => { //绑定变量值
@@ -30,6 +86,7 @@ struct Register {
 
             TextInput({ placeholder: '请输入密码' })
               .type(InputType.Password)
+              .placeholderColor('rgba(255, 255, 255, 0.7)')
               .maxLength(20)
               .inputTextStyle()
               .onChange((value) => { //绑定变量值
@@ -37,6 +94,7 @@ struct Register {
               })
             TextInput({ placeholder: '请输入确认密码' })
               .type(InputType.Password)
+              .placeholderColor('rgba(255, 255, 255, 0.7)')
               .maxLength(20)
               .inputTextStyle()
               .onChange((value) => { //绑定变量值
@@ -62,7 +120,8 @@ struct Register {
     }
     .width('100%')
     .height('100%')
-    .backgroundColor('#eee')
+    // .backgroundColor('#eee')
+    .backgroundColor('#4CAF50')
 
   }
   // 注册用户
@@ -118,9 +177,21 @@ struct Register {
   }
 }
 
-@Extend(TextInput) function inputTextStyle() {
-  .backgroundColor(Color.White)
-  .height(48)
+// @Extend(TextInput) function inputTextStyle() {
+//   .backgroundColor(Color.White)
+//   .height(48)
+//   .margin({ bottom: 20 })
+//   .borderRadius(10)
+// }
+
+@Extend(TextInput)
+function inputTextStyle() {
+  .backgroundColor('rgba(255, 255, 255, 0.2)')
+  .height(52)
   .margin({ bottom: 20 })
-  .borderRadius(10)
+  .borderRadius(26)
+  .fontSize(16)
+  .fontColor(Color.White)
+  .padding({ left: 20, right: 20 })
+  .border({ width: 1, color: 'rgba(255, 255, 255, 0.3)' })
 }

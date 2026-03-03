@@ -2,8 +2,8 @@ import router from '@ohos.router'
 import promptAction from '@ohos.promptAction'
 import { homeApi } from '../../api/HomeAPI';
 import { loginResType } from '../../typeDeclare/responseType.d'
-import { InputType } from '@ohos.input'
-import { Color, Alignment, Visibility, animateTo, Curve } from '@ohos/arkui'
+// import { InputType } from '@ohos.input'
+// import { Color, Alignment, Visibility, animateTo, Curve } from '@ohos/arkui'
 
 PersistentStorage.PersistProp('token', ''); //存储登陆token
 PersistentStorage.PersistProp('userType',''); //存储用户类别
@@ -29,21 +29,38 @@ struct Login {
     this.animateLogo()
   }
 
+  // animateLogo() {
+  //   animateTo({
+  //     duration: 1000,
+  //     curve: Curve.EaseInOut,
+  //     iterations: 1
+  //   }, () => {
+  //     this.logoScale = 1.1
+  //   }, () => {
+  //     animateTo({
+  //       duration: 800,
+  //       curve: Curve.EaseInOut
+  //     }, () => {
+  //       this.logoScale = 1
+  //     })
+  //   })
+  // }
   animateLogo() {
     animateTo({
       duration: 1000,
       curve: Curve.EaseInOut,
       iterations: 1
     }, () => {
-      this.logoScale = 1.1
-    }, () => {
+      this.logoScale = 1.1;
+
+      // 在第一个动画完成后，启动第二个动画
       animateTo({
-        duration: 800,
+        duration: 80000,
         curve: Curve.EaseInOut
       }, () => {
-        this.logoScale = 1
-      })
-    })
+        this.logoScale = 1;
+      });
+    });
   }
 
   build() {
@@ -101,8 +118,17 @@ struct Login {
         // 登录表单
         Column() {
           // 账户输入框
+          // Row() {
+          //   TextInput({ placeholder: '请输入账户', placeholderColor: 'rgba(255, 255, 255, 0.7)' })
+          //     .maxLength(20)
+          //     .inputTextStyle()
+          //     .onChange((value) => {
+          //       this.account = value;
+          //     })
+          // }
           Row() {
-            TextInput({ placeholder: '请输入账户', placeholderColor: 'rgba(255, 255, 255, 0.7)' })
+            TextInput({ placeholder: '请输入账号' })
+              .placeholderColor('rgba(255, 255, 255, 0.7)')
               .maxLength(20)
               .inputTextStyle()
               .onChange((value) => {
@@ -111,16 +137,26 @@ struct Login {
           }
 
           // 密码输入框
+          // Row() {
+          //   TextInput({ placeholder: '请输入密码', placeholderColor: 'rgba(255, 255, 255, 0.7)' })
+          //     .type(InputType.Password)
+          //     .maxLength(20)
+          //     .inputTextStyle()
+          //     .onChange((value) => {
+          //       this.password = value;
+          //     })
+          //     .onSubmit((enterKey) => {
+          //       this.login()
+          //     })
+          // }
           Row() {
-            TextInput({ placeholder: '请输入密码', placeholderColor: 'rgba(255, 255, 255, 0.7)' })
+            TextInput({ placeholder: '请输入密码' })
+              .placeholderColor('rgba(255, 255, 255, 0.7)')
               .type(InputType.Password)
               .maxLength(20)
               .inputTextStyle()
               .onChange((value) => {
                 this.password = value;
-              })
-              .onSubmit((enterKey) => {
-                this.login()
               })
           }
 
@@ -161,7 +197,8 @@ struct Login {
       .padding({ top: 80 })
       .width('100%')
       .height('100%')
-      .alignItems(Alignment.Center)
+      // .alignItems(Alignment.Center)
+      .alignItems(HorizontalAlign.Center)
     }
     .width('100%')
     .height('100%')

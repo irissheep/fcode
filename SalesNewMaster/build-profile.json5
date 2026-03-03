@@ -26,15 +26,14 @@
     "signingConfigs": [
       {
         "name": "default",
-        "type": "HarmonyOS",
         "material": {
-          "certpath": "C:\\Users\\davius\\.ohos\\config\\auto_debug_SalesNewMaster_com.example.myapplication_30086000648491250.cer",
-          "storePassword": "0000001B5682A8F04D16799E5AC4B0B38F8B252AA02A6544872968495457F9121DDBC50CA1E137AFAF3F61",
+          "certpath": "C:\\Users\\davius\\.ohos\\config\\openharmony\\auto_ohos_default_SalesNewMaster_com.example.myapplication.cer",
+          "storePassword": "00000019176DBC25FD440AB90FAF8F0C6CABCBC5151D435910DA8CFEEF614B9456272E39493636A559",
           "keyAlias": "debugKey",
-          "keyPassword": "0000001B307C2500AF2B6494640F1B83B64277BA8E5688AEDBD58F3E315822FFEA607FD1CDC01A25639DE9",
-          "profile": "C:\\Users\\davius\\.ohos\\config\\auto_debug_SalesNewMaster_com.example.myapplication_30086000648491250.p7b",
+          "keyPassword": "0000001993AF2E2FB0711F70BD3F1EA45599BD780C22FA103883269AFF4B83F3051BFB72C0A77EBA31",
+          "profile": "C:\\Users\\davius\\.ohos\\config\\openharmony\\auto_ohos_default_SalesNewMaster_com.example.myapplication.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:\\Users\\davius\\.ohos\\config\\auto_debug_SalesNewMaster_com.example.myapplication_30086000648491250.p12"
+          "storeFile": "C:\\Users\\davius\\.ohos\\config\\openharmony\\auto_ohos_default_SalesNewMaster_com.example.myapplication.p12"
         }
       }
     ]
