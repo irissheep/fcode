@@ -20,8 +20,7 @@ export default class socketClass {
 
   constructor() {
     const userId: string = AppStorage.Get('userId') || ''
-    // this.ipAddress = 'ws://42.193.243.96:9999/websocket/' + userId
-    this.ipAddress = 'ws://10.35.82.168/websocket/' + userId
+    this.ipAddress = 'ws://42.193.243.96:9999/websocket/' + userId
     this.isConnect = AppStorage.Get('isConnect') || 'false'
   }
 

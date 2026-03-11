@@ -8,7 +8,7 @@ import promptAction from '@ohos.promptAction';
 // 本地浏览器调试：使用 http://localhost:9999
 // 真机调试：使用电脑IP地址，例如 http://192.168.1.100:9999
 // 远程服务器：使用 http://42.193.243.96:9999
-let BASE_URL = AppStorage.Get('BASE_URL') as string || '10.35.82.168'
+let BASE_URL = AppStorage.Get('BASE_URL') as string || 'http://10.0.2.2:9999'
 const TAG: string = '[HttpUtils]'
 
 

@@ -9,7 +9,6 @@
     "pages/customer/rechargeRecords",
     "pages/customer/editPwd",
     "pages/customer/expendRecords",
-    "pages/customer/goodsDetail",
     "pages/merchant/goodsDetail",
     "pages/merchant/deviceManage",
     "pages/merchant/merchantMy",
