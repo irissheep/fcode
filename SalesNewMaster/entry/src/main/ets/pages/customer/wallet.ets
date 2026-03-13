@@ -64,12 +64,24 @@ struct wallet {
             Text('￥')
             Row() {
               TextInput({ text: this.money, placeholder: '请输入' })
-                .type(InputType.Number)
-                .backgroundColor('#fff')
-                .width(300).onChange((value: string) => {
-                this.money = value
+                // .type(InputType.Number)
+                // .backgroundColor('#fff')
+                // .width(300).onChange((value: string) => {
+                // this.money = value
+                .backgroundColor('#FFFFFF') // 白色背景
+                .borderWidth(1)
+                .borderColor(Color.Gray)
+                .borderRadius(20) // 圆角
+                .width('90%') // 占满大部分宽度
+                .height(50)
+                .fontSize(16)
+                .fontColor(Color.Black)
+                .padding({ left: 20, right: 20 }) // 内边距
+                .margin({left: 10})
+                .onChange((value: string) => {
+                  this.money = value
               })
-            }.width(300).borderWidth({ bottom: 1 })
+            }.width(300)
 
           }.width('100%')
         }
