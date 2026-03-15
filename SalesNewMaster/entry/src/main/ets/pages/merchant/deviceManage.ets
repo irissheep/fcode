@@ -110,7 +110,8 @@ struct deviceManage {
                 .width('100%')
                 .padding(16)
                 .borderRadius(16)
-                .shadow({ radius: 8, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 2 })
+                .borderWidth(1)
+                .borderColor('#E8E8E8')
               }
             }, (item: deviceItemType, index: number) => index.toString())
             ListItem() { // 加载更多布局
