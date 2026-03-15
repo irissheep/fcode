@@ -47,11 +47,11 @@ struct goodsDetail {
   @Styles
   sameStyle(){
     .width('100%')
-    .height(50)
-    .borderWidth({ bottom: 1 })
-    .borderColor('gray')
-    .padding({ left: 10, right: 10 })
+    .height(56)
+    .padding({ left: 16, right: 16 })
     .backgroundColor('#ffffff')
+    .borderRadius(12)
+    .margin({ bottom: 12 })
   }
 
   async onPageShow() {
@@ -90,9 +90,12 @@ struct goodsDetail {
           Row() {
             Flex({ alignItems: ItemAlign.Center }) {
               Text('*').fontColor(Color.Red)
-              Text('商品名称').width(100)
-              TextInput({ text: this.detailInfo.name, placeholder: '请输入' })
-                .backgroundColor('#fff')
+              Text('商品名称').width(100).fontSize(16).fontWeight(500)
+              TextInput({ text: this.detailInfo.name, placeholder: '请输入商品名称' })
+                .backgroundColor('#F5F7FA')
+                .borderRadius(8)
+                .height(40)
+                .padding({ left: 12, right: 12 })
                 .onChange((value) => {
                   this.detailInfo.name = value;
                 })
@@ -102,11 +105,13 @@ struct goodsDetail {
           Row() {
             Flex({ alignItems: ItemAlign.Center }) {
               Text('*').fontColor(Color.Red)
-              Text('所在货架').width(100)
-              TextInput({ text: this.detailInfo.shelf || '', placeholder: '请输入' })
-                .backgroundColor('#fff')
+              Text('所在货架').width(100).fontSize(16).fontWeight(500)
+              TextInput({ text: this.detailInfo.shelf || '', placeholder: '请选择货架' })
+                .backgroundColor('#F5F7FA')
+                .borderRadius(8)
+                .height(40)
+                .padding({ left: 12, right: 12 })
                 .onClick(() => {
-                  // 唤起弹窗
                   TextPickerDialog.show({
                     range: this.shelfOption,
                     onAccept: (shelf: TextPickerResult) => {
@@ -118,76 +123,85 @@ struct goodsDetail {
                         onAccept: (cell: TextPickerResult) => {
                           const index2 = cell.index as number
                           this.selectId = Object(cellList[index2])['id']
-                          // this.selectId = cellList[index2]['id']
                           this.detailInfo.shelf = shelf.value + '-' + cell.value;
-                          console.log('货架',shelf.value + '-' + cell.value,  this.selectId)  //货架7-格子3
                         },
                       })
                     },
                   })
                 })
-              Image($r('app.media.youjiantou')).width(20)
+              Image($r('app.media.youjiantou')).width(16).height(16).fillColor('#999')
             }
           }.sameStyle()
 
           Row() {
             Flex({ alignItems: ItemAlign.Center }) {
               Text('*').fontColor(Color.Red)
-              Text('商品单价').width(70)
-              TextInput({ text: (Number(this.detailInfo.price || '')).toString(), placeholder: '请输入' })
-                .backgroundColor('#fff')
+              Text('商品单价').width(70).fontSize(16).fontWeight(500)
+              TextInput({ text: (Number(this.detailInfo.price || '')).toString(), placeholder: '请输入单价' })
+                .backgroundColor('#F5F7FA')
+                .borderRadius(8)
+                .height(40)
+                .padding({ left: 12, right: 12 })
                 .type(InputType.Number)
                 .onChange((value) => {
                   this.detailInfo.price = Number(value);
                 }).width(100)
-              Text('元')
+              Text('元').fontSize(16).fontColor('#666')
             }
           }.sameStyle()
 
           Row() {
             Flex({ alignItems: ItemAlign.Center }) {
               Text('*').fontColor(Color.Red)
-              Text('商品重量').width(70)
-              TextInput({ text: this.detailInfo.weight, placeholder: '请输入' })
-                .backgroundColor('#fff')
+              Text('商品重量').width(70).fontSize(16).fontWeight(500)
+              TextInput({ text: this.detailInfo.weight, placeholder: '请输入重量' })
+                .backgroundColor('#F5F7FA')
+                .borderRadius(8)
+                .height(40)
+                .padding({ left: 12, right: 12 })
                 .type(InputType.Number)
                 .onChange((value) => {
                   this.detailInfo.weight = value;
                 }).width(100)
-              Text('g')
+              Text('g').fontSize(16).fontColor('#666')
             }
           }.sameStyle()
 
           Row() {
             Flex({ alignItems: ItemAlign.Center }) {
               Text('*').fontColor(Color.Red)
-              Text('补货阈值').width(70)
-              TextInput({ text: (this.detailInfo.thresholdValue || '').toString(), placeholder: '请输入' })
-                .backgroundColor('#fff')
+              Text('补货阈值').width(70).fontSize(16).fontWeight(500)
+              TextInput({ text: (this.detailInfo.thresholdValue || '').toString(), placeholder: '请输入阈值' })
+                .backgroundColor('#F5F7FA')
+                .borderRadius(8)
+                .height(40)
+                .padding({ left: 12, right: 12 })
                 .type(InputType.Number)
                 .onChange((value) => {
                   this.detailInfo.thresholdValue = value;
                 }).width(100)
-              Text('件')
+              Text('件').fontSize(16).fontColor('#666')
             }
           }.sameStyle()
 
           Row() {
             Flex({ alignItems: ItemAlign.Center }) {
               Text('*').fontColor(Color.Red)
-              Text('商品图片').width(100)
+              Text('商品图片').width(100).fontSize(16).fontWeight(500)
               Row() {
                 if (this.detailInfo.pictureUrl) {
-                  Image(this.detailInfo.pictureUrl).width(80).height(80).onClick(() => {
+                  Image(this.detailInfo.pictureUrl).width(80).height(80).borderRadius(8).objectFit(ImageFit.Cover).onClick(() => {
                     this.openAlbum()
                   })
                 } else {
                   Flex({ justifyContent: FlexAlign.Center, alignItems: ItemAlign.Center }) {
-                    Image($r('app.media.upload')).width(50).height(50)
+                    Image($r('app.media.upload')).width(40).height(40).fillColor('#999')
                   }
-                  .width(80).height(80)
-                  .backgroundColor('#f4f9fd')
-
+                  .width(80)
+                  .height(80)
+                  .backgroundColor('#F5F7FA')
+                  .borderRadius(8)
+                  .border({ width: 2, color: '#E0E0E0', style: BorderStyle.Dashed })
                   .onClick(() => {
                     this.openAlbum()
                   })
@@ -195,22 +209,29 @@ struct goodsDetail {
 
               }.height(100).width(100)
             }
-          }.sameStyle().margin({ bottom: 20 }).height(100)
+          }.sameStyle().margin({ bottom: 24 }).height(100)
 
 
-          Button('保存').width(100).onClick(() => {
-            let pass = true
-            this.validateData.forEach(i => {
-              if (!this.detailInfo[i]) {
-                promptAction.showToast({ message: '请填写完整信息！', duration: 2000 })
-                pass = false
-                return
-              }
+          Button('保存')
+            .width('100%')
+            .height(48)
+            .fontSize(16)
+            .fontWeight(600)
+            .backgroundColor('#007DFF')
+            .borderRadius(24)
+            .onClick(() => {
+              let pass = true
+              this.validateData.forEach(i => {
+                if (!this.detailInfo[i]) {
+                  promptAction.showToast({ message: '请填写完整信息！', duration: 2000 })
+                  pass = false
+                  return
+                }
+              })
+
+              if (pass) this.submit()
+
             })
-
-            if (pass) this.submit()
-
-          })
         }.width('100%').padding(10)
       }
 

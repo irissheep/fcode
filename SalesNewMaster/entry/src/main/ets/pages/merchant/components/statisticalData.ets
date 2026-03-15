@@ -128,9 +128,10 @@ export struct statisticalData {
   sameStyle() {
     .width('96%')
     .backgroundColor('#fff')
-    .borderRadius(10)
+    .borderRadius(16)
     .padding(20)
     .margin({ bottom: 20 })
+    .shadow({ radius: 12, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 4 })
   }
 
   async aboutToAppear() {
@@ -168,42 +169,50 @@ export struct statisticalData {
           Column() {
             Column() {
               Flex({ justifyContent: FlexAlign.SpaceBetween }) {
-                Text('商品销售数量统计')
+                Text('商品销售数量统计').fontSize(18).fontWeight(600)
                 Row() {
                   Image($r('app.media.more')).width(20).margin({ right: 8 }).onClick(() => {
                     this.selectType1 = 'free'
                     this.openTimeRange('1')
                   })
                   Text('近7天')
+                    .fontSize(14)
+                    .fontWeight(500)
+                    .padding({ left: 16, right: 16, top: 8, bottom: 8 })
+                    .borderRadius(16)
                     .borderWidth(1)
-                    .borderColor(this.selectType1 == '7' ? Color.Blue : '#000')
-                    .backgroundColor(this.selectType1 == '7' ? Color.Blue : '#fff')
-                    .fontColor(this.selectType1 == '7' ? '#ffff' : '#000')
+                    .borderColor(this.selectType1 == '7' ? '#007DFF' : '#E0E0E0')
+                    .backgroundColor(this.selectType1 == '7' ? '#007DFF' : '#fff')
+                    .fontColor(this.selectType1 == '7' ? '#fff' : '#666')
                     .onClick(() => {
                       this.selectType1 = '7'
                       this.getData1('btn', '7')
                     })
                   Text('近1月')
+                    .fontSize(14)
+                    .fontWeight(500)
+                    .padding({ left: 16, right: 16, top: 8, bottom: 8 })
+                    .borderRadius(16)
                     .borderWidth(1)
-                    .borderColor(this.selectType1 == '30' ? Color.Blue : '#000')
-                    .backgroundColor(this.selectType1 == '30' ? Color.Blue : '#fff')
-                    .fontColor(this.selectType1 == '30' ? '#ffff' : '#000')
+                    .borderColor(this.selectType1 == '30' ? '#007DFF' : '#E0E0E0')
+                    .backgroundColor(this.selectType1 == '30' ? '#007DFF' : '#fff')
+                    .fontColor(this.selectType1 == '30' ? '#fff' : '#666')
                     .onClick(() => {
                       this.selectType1 = '30'
                       this.getData1('btn', '30')
                     })
                 }
-              }.margin({ bottom: 8 })
+              }.margin({ bottom: 16 })
 
-              Divider().strokeWidth(1)
+              Divider().strokeWidth(1).color('#F0F0F0')
               McBarChart({
                 options: this.saleNumberOption
               }).width('100%').height('100%')
-            }.sameStyle().height(400)
+            }.sameStyle().height(420)
 
             Column() {
               Flex({ justifyContent: FlexAlign.SpaceBetween }) {
-                Text('用户选购行为统计')
+                Text('用户选购行为统计').fontSize(18).fontWeight(600)
                 Row() {
                   Image($r('app.media.more')).width(20).margin({ right: 8 })
                     .onClick(() => {
@@ -211,41 +220,49 @@ export struct statisticalData {
                       this.openTimeRange('2')
                     })
                   Text('近7天')
+                    .fontSize(14)
+                    .fontWeight(500)
+                    .padding({ left: 16, right: 16, top: 8, bottom: 8 })
+                    .borderRadius(16)
                     .borderWidth(1)
-                    .borderColor(this.selectType2 == '7' ? Color.Blue : '#000')
-                    .backgroundColor(this.selectType2 == '7' ? Color.Blue : '#fff')
-                    .fontColor(this.selectType2 == '7' ? '#ffff' : '#000')
+                    .borderColor(this.selectType2 == '7' ? '#007DFF' : '#E0E0E0')
+                    .backgroundColor(this.selectType2 == '7' ? '#007DFF' : '#fff')
+                    .fontColor(this.selectType2 == '7' ? '#fff' : '#666')
                     .onClick(() => {
                       this.selectType2 = '7'
                       this.getData2('btn', '7')
                     })
                   Text('近1月')
+                    .fontSize(14)
+                    .fontWeight(500)
+                    .padding({ left: 16, right: 16, top: 8, bottom: 8 })
+                    .borderRadius(16)
                     .borderWidth(1)
-                    .borderColor(this.selectType2 == '30' ? Color.Blue : '#000')
-                    .backgroundColor(this.selectType2 == '30' ? Color.Blue : '#fff')
-                    .fontColor(this.selectType2 == '30' ? '#ffff' : '#000')
+                    .borderColor(this.selectType2 == '30' ? '#007DFF' : '#E0E0E0')
+                    .backgroundColor(this.selectType2 == '30' ? '#007DFF' : '#fff')
+                    .fontColor(this.selectType2 == '30' ? '#fff' : '#666')
                     .onClick(() => {
                       this.selectType2 = '30'
                       this.getData2('btn', '30')
                     })
                 }
-              }.margin({ bottom: 8 })
+              }.margin({ bottom: 16 })
 
-              Divider().strokeWidth(1)
+              Divider().strokeWidth(1).color('#F0F0F0')
               McBarChart({
                 options: this.behaviorOption
               }).width('100%').height('100%')
-            }.sameStyle().height(400)
+            }.sameStyle().height(420)
 
             Column() {
               Flex({ justifyContent: FlexAlign.SpaceBetween }) {
-                Text('商品销售趋势')
+                Text('商品销售趋势').fontSize(18).fontWeight(600)
                 Select(this.goodsListOption)
                   .selected(undefined)
                   .value('全部')
                   .font({ size: 16, weight: 500 })
                   .fontColor('#182431')
-                  .selectedOptionFont({ size: 16, weight: 400 })
+                  .selectedOptionFont({ size: 16, weight: 500 })
                   .optionFont({ size: 16, weight: 400 })
                   .onSelect((index: number, value: string) => {
                     if (value == '全部') {
@@ -256,66 +273,71 @@ export struct statisticalData {
 
 
                   })
-              }.margin({ bottom: 8 })
+              }.margin({ bottom: 16 })
 
-              Divider().strokeWidth(1)
+              Divider().strokeWidth(1).color('#F0F0F0')
               McLineChart({
                 options: this.trendOption
               }).width('100%').height('100%')
-            }.sameStyle().height(400)
+            }.sameStyle().height(420)
 
 
 
             Column() {
               Flex({justifyContent:FlexAlign.Start}){
-                Text('商品库存统计')
+                Text('商品库存统计').fontSize(18).fontWeight(600)
               }
-              Divider().strokeWidth(1).margin({ bottom: 10 })
+              Divider().strokeWidth(1).color('#F0F0F0').margin({ bottom: 12 })
               Row() {
                 ForEach(this.titleList, (item: string, index: number) => {
                   if (index == 0) {
-                    Text(item).height(28).width('13%').textAlign(TextAlign.Center).backgroundColor('#f7f7fa')
+                    Text(item).height(32).width('13%').textAlign(TextAlign.Center).backgroundColor('#F5F7FA').fontSize(14).fontWeight(500).fontColor('#666')
                   } else {
                     Text(item)
-                      .height(28)
+                      .height(32)
                       .width('29%')
                       .textAlign(TextAlign.Center)
-                      .backgroundColor('#f7f7fa')
+                      .backgroundColor('#F5F7FA')
                       .borderWidth({ left: index == 1 ? 1 : 0, right: (index == 2 || index == 1) ? 1 : 0 })
-                      .borderColor('#cccccc')
+                      .borderColor('#E8E8E8')
+                      .fontSize(14)
+                      .fontWeight(500)
+                      .fontColor('#666')
                   }
                 }, (item: string) => item)
-              }.borderWidth(1).width('100%').borderColor('#cccccc')
+              }.borderWidth(1).width('100%').borderColor('#E8E8E8').borderRadius({ topLeft: 8, topRight: 8 })
 
               if (this.data4.length > 0) {
                 ForEach(this.data4, (item: data4Type, index: number) => {
                   Row() {
-                    Text((index + 1).toString()).height(36).width('13%').textAlign(TextAlign.Center)
+                    Text((index + 1).toString()).height(40).width('13%').textAlign(TextAlign.Center).fontSize(14)
                     Text(item.shelf)
-                      .height(36)
+                      .height(40)
                       .width('29%')
                       .textAlign(TextAlign.Center)
                       .borderWidth({ left: 1, right: 1 })
-                      .borderColor('#cccccc')
+                      .borderColor('#E8E8E8')
+                      .fontSize(14)
                     Text(item.name)
-                      .height(36)
+                      .height(40)
                       .width('29%')
                       .textAlign(TextAlign.Center)
                       .borderWidth({ right: 1 })
-                      .borderColor('#cccccc')
-                    Text(item.number.toString()).height(36).width('29%').textAlign(TextAlign.Center)
-                  }.borderWidth({ bottom: 1, left: 1, right: 1 }).width('100%').borderColor('#cccccc')
+                      .borderColor('#E8E8E8')
+                      .fontSize(14)
+                    Text(item.number.toString()).height(40).width('29%').textAlign(TextAlign.Center).fontSize(14).fontColor('#FF6B00').fontWeight(600)
+                  }.borderWidth({ bottom: 1, left: 1, right: 1 }).width('100%').borderColor('#E8E8E8')
                 }, (item: data4Type) => item.name)
               } else {
                 Text('暂无信息')
                   .textAlign(TextAlign.Center)
-                  .fontColor(Color.Gray)
-                  .fontWeight(700)
-                  .fontSize(24)
+                  .fontColor('#999')
+                  .fontWeight(500)
+                  .fontSize(16)
                   .width('100%')
-                  .height(80)
-                  .borderRadius(6)
-                  .borderColor('#f4f9fd')
+                  .height(100)
+                  .borderRadius(8)
+                  .backgroundColor('#F5F7FA')
               }
             }.sameStyle()
 

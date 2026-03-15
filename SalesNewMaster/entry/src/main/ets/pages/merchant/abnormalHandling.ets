@@ -156,81 +156,80 @@ struct abnormalHandling {
         Column() {
           Column() {
             Flex({ justifyContent: FlexAlign.SpaceBetween }) {
-              Text('订单号：' + this.detailInfo.billNo).fontSize(14)
+              Text('订单号：' + this.detailInfo.billNo).fontSize(14).fontWeight(500)
               Text(this.detailInfo.status == '1' ? '已完成' : 
                    (this.detailInfo.status == '2' ? '异常退回' : 
                     (this.detailInfo.status == '3' ? '异常取走' : 
                      (this.detailInfo.status == '4' ? '已忽略' : '未知'))))
-                .fontColor(this.detailInfo.status == '1' ? Color.Black : 
-                          (this.detailInfo.status == '4' ? Color.Gray : Color.Red)).fontSize(14)
-            }.margin({ bottom: 10 })
+                .fontColor(this.detailInfo.status == '1' ? '#52C41A' : 
+                          (this.detailInfo.status == '4' ? '#999999' : '#FF4D4F')).fontSize(14).fontWeight(500)
+            }.margin({ bottom: 12 })
 
             Flex() {
               Column() {
                 Image((this.detailInfo?.productList?.[0] || {}).pictureUrl || '')
-                  .width(60)
-                  .height(60)
+                  .width(70)
+                  .height(70)
+                  .borderRadius(8)
+                  .objectFit(ImageFit.Cover)
                 Row() {
                   Text('x ' + this.detailInfo.totalNumber || '')
                     .fontColor(Color.White)
-                    .fontSize(9)
+                    .fontSize(10)
+                    .fontWeight(500)
                 }
-                .position({ x: 46, y: 46 })
-                .backgroundColor('gray')
-                .borderRadius(4)
-                .width(14)
-                .height(14)
+                .position({ x: 54, y: 54 })
+                .backgroundColor('rgba(0, 0, 0, 0.6)')
+                .borderRadius(10)
+                .width(16)
+                .height(16)
+                .justifyContent(FlexAlign.Center)
 
-              }.width(60).height(60)
+              }.width(70).height(70)
 
               Flex({
                 direction: FlexDirection.Column,
                 alignItems: ItemAlign.Start,
                 justifyContent: FlexAlign.SpaceBetween
               }) {
-                Text((this.detailInfo?.productList?.[0] || {}).name || '').fontSize(14)
-                Text(this.detailInfo.totalAmount || '').fontSize(14)
-                Text(this.detailInfo.createTime).fontSize(14)
-              }.height(60).margin({ left: 10 })
+                Text((this.detailInfo?.productList?.[0] || {}).name || '').fontSize(16).fontWeight(500).maxLines(2).textOverflow({ overflow: TextOverflow.Ellipsis })
+                Text('￥' + (this.detailInfo.totalAmount || '')).fontSize(16).fontColor('#FF6B00').fontWeight(600)
+                Text(this.detailInfo.createTime).fontSize(12).fontColor('#999999')
+              }.height(70).margin({ left: 12 }).flexGrow(1)
             }
           }
           .width('100%')
           .backgroundColor(Color.White)
-          .padding(10)
-          .borderWidth(1)
-          .borderColor(Color.Gray)
-          .borderRadius(4)
-          .margin({ bottom: 10 })
+          .padding(16)
+          .borderRadius(16)
+          .margin({ bottom: 16 })
+          .shadow({ radius: 8, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 2 })
 
           Column() {
-            Text('照片:').margin({ bottom: 10 })
+            Text('照片').fontSize(16).fontWeight(600).margin({ bottom: 12 })
             if (this.detailInfo.pictureUrl) {
               List({ space: 0, initialIndex: 0 }) {
                 ForEach((this.detailInfo.pictureUrl || '').split(','), (item: string, index: number) => {
                   ListItem() {
-                    Image(item).width(60).height(60).margin({ right: 10 })
+                    Image(item).width(70).height(70).borderRadius(8).objectFit(ImageFit.Cover).margin({ right: 12 })
                   }
                 }, (item: object, index: number) => index.toString())
-              }.listDirection(Axis.Horizontal).height(60).alignListItem(ListItemAlign.Start)
+              }.listDirection(Axis.Horizontal).height(70).alignListItem(ListItemAlign.Start)
             } else {
+              Text('暂无照片').fontSize(14).fontColor('#999999')
             }
-            Text('暂无照片')
-
-
           }
           .width('100%')
           .backgroundColor(Color.White)
-          .padding(10)
-          .borderWidth(1)
-          .borderColor(Color.Gray)
-          .borderRadius(4)
+          .padding(16)
+          .borderRadius(16)
           .alignItems(HorizontalAlign.Start)
-          .margin({ bottom: 10 })
-
+          .margin({ bottom: 16 })
+          .shadow({ radius: 8, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 2 })
 
           Column() {
             Flex({ alignItems: ItemAlign.Center }) {
-              Text('处置：')
+              Text('处置：').fontSize(16).fontWeight(500)
 
               Radio({ value: '0', group: 'radioGroup' })
                 .checked(true)
@@ -239,7 +238,7 @@ struct abnormalHandling {
                     this.radioSelect = '0'
                   }
                 })
-              Text('忽略').margin({ right: 10 })
+              Text('忽略').fontSize(16).margin({ right: 24 })
               Radio({ value: '1', group: 'radioGroup' })
                 .checked(false)
                 .onChange((isChecked: boolean) => {
@@ -247,50 +246,54 @@ struct abnormalHandling {
                     this.radioSelect = '1'
                   }
                 })
-              Text(this.detailInfo.status == '2' ?'退款':'扣款')
+              Text(this.detailInfo.status == '2' ?'退款':'扣款').fontSize(16)
             }
 
             if (this.radioSelect == '1') {
-              Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
-                Text('客户:').width(50)
-                Text(this.selectUser ? this.selectUser : '请选择').flexGrow(1).onClick(() => {
+              Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center })
+                .width('100%')
+                .height(48)
+                .backgroundColor('#F5F7FA')
+                .borderRadius(8)
+                .padding({ left: 16, right: 16 })
+                .margin({ top: 16 })
+                .onClick(() => {
                   this.dialogController.open()
-                })
-                Image($r('app.media.right')).width(10)
-                // Select(this.selectList)
-                //   .selected(-1)
-                //   .value('请选择')
-                //   .flexGrow(1)
-                //   .onSelect((index: number, text?: string | undefined) => {
-                //     this.selectUserId = this.originUserList[index].id
-                //     this.selectUserAccount = this.originUserList[index].account
-                //   })     .flexGrow(1)
-
+                }) {
+                Text('客户').fontSize(16).fontWeight(500)
+                Text(this.selectUser ? this.selectUser : '请选择').flexGrow(1).textAlign(TextAlign.End).fontColor(this.selectUser ? '#333' : '#999').margin({ left: 12 })
+                Image($r('app.media.right')).width(16).height(16).fillColor('#999')
               }
             }
 
           }
           .width('100%')
           .backgroundColor(Color.White)
-          .padding(10)
-          .borderWidth(1)
-          .borderColor(Color.Gray)
-          .borderRadius(4)
-          .margin({ bottom: 10 })
+          .padding(16)
+          .borderRadius(16)
+          .margin({ bottom: 16 })
+          .shadow({ radius: 8, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 2 })
         }
 
         Flex({ justifyContent: FlexAlign.Center }) {
-          Button('提交').width('80%').onClick(() => {
-            console.log('提交按钮点击，客户id:', this.selectUserId, '处理类型:', this.radioSelect)
-            this.submit()
-          })
+          Button('提交')
+            .width('80%')
+            .height(48)
+            .fontSize(16)
+            .fontWeight(600)
+            .backgroundColor('#007DFF')
+            .borderRadius(24)
+            .onClick(() => {
+              console.log('提交按钮点击，客户id:', this.selectUserId, '处理类型:', this.radioSelect)
+              this.submit()
+            })
         }.position({ y: '90%' })
       }
       .mode(NavigationMode.Auto)
       .title(this.customNav)
       .hideBackButton(true)
       .titleMode(NavigationTitleMode.Mini)
-    }.width('100%').height('100%').backgroundColor('#f4f9fd').padding(10)
+    }.width('100%').height('100%').backgroundColor('#F5F7FA').padding(16)
 
   }
 

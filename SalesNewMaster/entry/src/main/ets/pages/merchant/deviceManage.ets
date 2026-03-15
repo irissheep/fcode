@@ -43,9 +43,13 @@ struct deviceManage {
         Column() {
           Search({ value: this.keywords, placeholder: '输入关键字搜索', controller: this.controller })
             .searchButton('搜索')
-            .height(40)
+            .height(44)
+            .backgroundColor('#FFFFFF')
+            .borderRadius(22)
             .placeholderFont({ size: 14, weight: 400 })
             .textFont({ size: 14, weight: 400 })
+            .padding({ left: 20, right: 20 })
+            .margin({ bottom: 20 })
             .onSubmit((value: string) => {
               this.keywords = value
               this.search()
@@ -56,7 +60,6 @@ struct deviceManage {
                 this.search()
               }
             })
-            .margin({ bottom: 20 })
 
           List({ space: 20, scroller: this.listScroller }) {
             ForEach(this.list, (item: deviceItemType,) => {
@@ -69,16 +72,18 @@ struct deviceManage {
                         direction: FlexDirection.Column,
                         alignItems: ItemAlign.Start
                       }) {
-                        Text('设备类别：' + item.category)
-                        Text('设备名称：' + item.name)
+                        Text('设备类别：' + item.category).fontSize(16).fontWeight(500).margin({ bottom: 8 })
+                        Text('设备名称：' + item.name).fontSize(14).fontColor('#666').margin({ bottom: 8 })
                         Flex({alignItems:ItemAlign.Center}) {
-                          Text('设备编号：').width(120)
+                          Text('设备编号：').width(120).fontSize(14).fontColor('#666')
                           Text(`${item.deviceNo}`)
                             .textOverflow({ overflow: TextOverflow.Ellipsis })
                             .maxLines(1)
                             .flexGrow(1)
+                            .fontSize(14)
+                            .fontColor('#666')
                         }
-                        Text('最近上报：' + item.recentReportTime)
+                        Text('最近上报：' + item.recentReportTime).fontSize(12).fontColor('#999')
                       }
                     }
 
@@ -90,16 +95,22 @@ struct deviceManage {
                       }) {
                         Row() {
                           Text(Number(item.status) ? '在线' : '离线')
-                            .fontColor(Number(item.status) ? 'green' : 'red')
+                            .fontColor(Number(item.status) ? '#52C41A' : '#FF4D4F')
+                            .fontSize(14)
+                            .fontWeight(500)
+                            .padding({ left: 12, right: 12, top: 6, bottom: 6 })
+                            .backgroundColor(Number(item.status) ? '#F0F9FF' : '#FFF1F0')
+                            .borderRadius(12)
                         }
-                      }
+                      }.width(80)
                     }.width(80)
-                  }.height(80)
+                  }.height(100)
                 }
                 .backgroundColor('#fff')
                 .width('100%')
-                .padding(8)
-                .borderRadius(4)
+                .padding(16)
+                .borderRadius(16)
+                .shadow({ radius: 8, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 2 })
               }
             }, (item: deviceItemType, index: number) => index.toString())
             ListItem() { // 加载更多布局

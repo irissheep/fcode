@@ -34,21 +34,22 @@ export struct merchantHome {
   @Styles
   titleSameStyle(){
     .width('100%')
-    .margin({ bottom: 12 })
-    .borderWidth({ left: 2 })
-    .padding({ left: 6 })
-    .borderColor(Color.Orange)
-    // .fontWeight(600)
+    .margin({ bottom: 16 })
+    .borderWidth({ left: 4 })
+    .padding({ left: 12 })
+    .borderColor('#FF6B00')
+    .fontWeight(600)
+    .fontSize(18)
   }
 
   @Styles
   cardSameStyle(){
     .backgroundColor(Color.White)
-    .borderRadius(6)
-    .padding(10)
+    .borderRadius(16)
+    .padding(16)
     .width('100%')
-    .margin({ bottom: 14 })
-    .height(100)
+    .margin({ bottom: 16 })
+    .shadow({ radius: 12, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 4 })
   }
 
   @Builder
@@ -88,33 +89,36 @@ export struct merchantHome {
       Scroll(this.scrollerForScroll) {
         Column() {
           Column() {
-            Text('销售统计').titleSameStyle().fontWeight(600)
+            Text('销售统计').titleSameStyle()
             Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
               Flex() {
-                Image($r('app.media.app_icon')).width(50).height(50).borderRadius(50).margin({ right: 10 })
+                Image($r('app.media.app_icon')).width(60).height(60).borderRadius(30).margin({ right: 12 })
                 Flex({ direction: FlexDirection.Column, justifyContent: FlexAlign.SpaceBetween }) {
-                  Text('订单数量')
-                  Text(this.count)
-                }.height(50)
+                  Text('订单数量').fontSize(14).fontColor('#666')
+                  Text(this.count).fontSize(24).fontWeight(600).fontColor('#FF6B00')
+                }.height(60)
               }
 
               Flex() {
-                Image($r('app.media.app_icon')).width(50).height(50).borderRadius(50).margin({ right: 10 })
+                Image($r('app.media.app_icon')).width(60).height(60).borderRadius(30).margin({ right: 12 })
                 Flex({ direction: FlexDirection.Column, justifyContent: FlexAlign.SpaceBetween }) {
-                  Text('销售额')
-                  Text(this.totalAmount)
-                }.height(50)
+                  Text('销售额').fontSize(14).fontColor('#666')
+                  Text(this.totalAmount).fontSize(24).fontWeight(600).fontColor('#FF6B00')
+                }.height(60)
               }
             }
-          }.cardSameStyle()
+          }.cardSameStyle().height(120)
 
 
           Column() {
             Flex({ alignItems: ItemAlign.Center, justifyContent: FlexAlign.SpaceBetween }) {
-              Text('销量排行').titleSameStyle().fontWeight(600).width('70%')
+              Text('销量排行').titleSameStyle().width('70%')
               Select([{ value: "top3", }, { value: "bottom3" }])
                 .selected(0)
                 .value('top3')
+                .font({ size: 14, weight: 500 })
+                .selectedOptionFont({ size: 14, weight: 500 })
+                .optionFont({ size: 14, weight: 400 })
                 .onSelect((index: number, text?: string | undefined) => {
                   this.condition = text == 'top3' ? 'desc' : 'asc'
                   this.getSaleSort()
@@ -123,42 +127,43 @@ export struct merchantHome {
 
             Row() {
               ForEach(this.titleList, (item: string) => {
-                Text(item).height(28).width('25%').textAlign(TextAlign.Center)
+                Text(item).height(32).width('25%').textAlign(TextAlign.Center).fontSize(14).fontWeight(500).fontColor('#666')
               }, (item: string) => item)
-            }
+            }.margin({ bottom: 8 })
 
             if (this.saleSort.length > 0) {
 
               ForEach(this.saleSort, (item: saleRankType, index: number) => {
                 Row() {
-                  Text((index + 1).toString()).height(36).width('25%').textAlign(TextAlign.Center)
-                  Text(item.name).height(36).width('25%').textAlign(TextAlign.Center)
-                  Text(item.price).height(36).width('25%').textAlign(TextAlign.Center)
-                  Text(item.number.toString()).height(36).width('25%').textAlign(TextAlign.Center)
+                  Text((index + 1).toString()).height(40).width('25%').textAlign(TextAlign.Center).fontSize(14)
+                  Text(item.name).height(40).width('25%').textAlign(TextAlign.Center).fontSize(14)
+                  Text(item.price).height(40).width('25%').textAlign(TextAlign.Center).fontSize(14)
+                  Text(item.number.toString()).height(40).width('25%').textAlign(TextAlign.Center).fontSize(14)
                 }
               }, (item: saleRankType) => item.name)
             } else {
               this.empty()
             }
-          }.cardSameStyle().height(200)
+          }.cardSameStyle().height(220)
 
           Column() {
-            Text(`补货预警（${this.replenishList.length || 0}）`).titleSameStyle().fontWeight(600)
+            Text(`补货预警（${this.replenishList.length || 0}）`).titleSameStyle()
             if (this.replenishList.length > 0) {
               Swiper(this.swiperController) {
                 ForEach(this.replenishList, (item: swiperListType) => {
                   Column() {
                     Flex({ justifyContent: FlexAlign.Start, direction: FlexDirection.Column }) {
-                      Text(item.name).height(24).fontWeight(500)
-                      Text('所在货架：' + item.shelf).height(24).fontSize(14).fontColor(Color.Gray)
-                      Text('剩余库存：' + item.number).height(24).fontSize(14).fontColor(Color.Gray)
+                      Text(item.name).height(28).fontSize(16).fontWeight(500)
+                      Text('所在货架：' + item.shelf).height(24).fontSize(14).fontColor('#666')
+                      Text('剩余库存：' + item.number).height(24).fontSize(14).fontColor('#FF4D4F')
                     }
                     .width('90%')
-                    .height(80)
-                    .padding({ left: 10 })
+                    .height(90)
+                    .padding({ left: 16, right: 16 })
                     .borderWidth(1)
-                    .borderRadius(6)
-                    .borderColor('#f4f9fd')
+                    .borderRadius(12)
+                    .borderColor('#F0F0F0')
+                    .backgroundColor('#FFF7F0')
                   }.width('100%')
                 }, (item: swiperListType, index: number) => index.toString())
               }
@@ -168,78 +173,82 @@ export struct merchantHome {
               .loop(true)
               .duration(1000)
               .indicator(true)
-              .itemSpace(10)
+              .itemSpace(12)
               .indicatorStyle({
-                bottom:4
-              }) .height(110)
-              // .displayArrow({ // 设置导航点箭头样式
-              //   showBackground: false,
-              //   arrowSize: 26,
-              //   arrowColor: Color.Black
-              // }, false) 1
+                bottom:8,
+                itemWidth: 6,
+                itemHeight: 6,
+                selectedItemWidth: 16,
+                selectedItemHeight: 6
+              }) .height(120)
             } else {
               this.empty()
             }
-          }.cardSameStyle().height(140)
+          }.cardSameStyle().height(160)
 
           Column() {
-            Text(`设备异常（${this.deviceWarnList.length || 0}）`).titleSameStyle().fontWeight(600)
+            Text(`设备异常（${this.deviceWarnList.length || 0}）`).titleSameStyle()
             if (this.deviceWarnList.length > 0) {
               Swiper(this.swiperController) {
                 ForEach(this.deviceWarnList, (item: swiperListType) => {
                   Column() {
                     Flex({ justifyContent: FlexAlign.Start, direction: FlexDirection.Column }) {
                       Flex({ justifyContent: FlexAlign.SpaceBetween }) {
-                        Text(item.name).height(24).fontSize(14)
+                        Text(item.name).height(28).fontSize(16).fontWeight(500)
                         // 设备状态 0 离线 1 在线
                         Text(Number(item.status) ? '在线' : '离线')
                           .height(24)
-                          .fontColor(Number(item.status) ? Color.Green : Color.Red)
-                          .fontSize(14)
+                          .fontColor(Number(item.status) ? '#52C41A' : '#FF4D4F')
+                          .fontSize(12)
+                          .fontWeight(500)
+                          .padding({ left: 8, right: 8, top: 4, bottom: 4 })
+                          .backgroundColor(Number(item.status) ? '#F0F9FF' : '#FFF1F0')
+                          .borderRadius(8)
                       }
 
                       Flex({alignItems:ItemAlign.Center}) {
-                        Text('设备编号：').width(100).fontSize(14)
+                        Text('设备编号：').width(100).fontSize(14).fontColor('#666')
                         Text(`${item.deviceNo}`)
                           .height(24)
                           .fontSize(14)
+                          .fontColor('#666')
                           .textOverflow({ overflow: TextOverflow.Ellipsis })
                           .maxLines(1)
                           .flexGrow(1)
                       }
 
 
-                      Text('最近上报：' + item.recentReportTime).height(24).fontSize(14)
+                      Text('最近上报：' + item.recentReportTime).height(24).fontSize(14).fontColor('#999')
                     }
                     .width('90%')
-                    .height(80)
-                    .padding({ left: 10, right: 10 })
+                    .height(90)
+                    .padding({ left: 16, right: 16 })
                     .borderWidth(1)
-                    .borderRadius(6)
-                    .borderColor('#f4f9fd')
+                    .borderRadius(12)
+                    .borderColor('#F0F0F0')
+                    .backgroundColor('#FFF7F0')
                   }.width('100%')
                 }, (item: swiperListType, index: number) => index.toString())
-              } .height(110)
+              } .height(120)
               .index(1)
               .autoPlay(true)
               .interval(4000)
               .loop(true)
               .duration(1000)
               .indicator(true)
-              .itemSpace(10)
+              .itemSpace(12)
               .indicatorStyle({
-                bottom:4
+                bottom:8,
+                itemWidth: 6,
+                itemHeight: 6,
+                selectedItemWidth: 16,
+                selectedItemHeight: 6
               })
-              // .displayArrow({ // 设置导航点箭头样式
-              //   showBackground: false,
-              //   arrowSize: 26,
-              //   arrowColor: Color.Black
-              // }, false) 1
             } else {
               this.empty()
             }
 
-          }.cardSameStyle().height(140)
+          }.cardSameStyle().height(160)
 
         }.padding(10)
       }

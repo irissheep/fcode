@@ -86,9 +86,13 @@ export struct goodsManage {
             Column() {
               Search({ value: this.keywords, placeholder: '输入关键字搜索', controller: this.controller })
                 .searchButton('搜索')
-                .height(40)
+                .height(44)
+                .backgroundColor('#FFFFFF')
+                .borderRadius(22)
                 .placeholderFont({ size: 14, weight: 400 })
                 .textFont({ size: 14, weight: 400 })
+                .padding({ left: 20, right: 20 })
+                .margin({ bottom: 20 })
                 .onSubmit((value: string) => {
                   this.keywords = value
                   this.search()
@@ -99,7 +103,6 @@ export struct goodsManage {
                     this.search()
                   }
                 })
-                .margin({ bottom: 20 })
 
               // 将listScroller用于初始化List组件的scroller参数，完成listScroller与列表的绑定。
               List({ space: 20, initialIndex: 0 }) {
@@ -108,59 +111,65 @@ export struct goodsManage {
                     Column() {
                       Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
                         Row().alignItems(VerticalAlign.Center) {
-                          Image(item.pictureUrl).width(60).height(60).borderRadius(4).margin({ right: 10 })
+                          Image(item.pictureUrl).width(70).height(70).borderRadius(12).objectFit(ImageFit.Cover).margin({ right: 12 })
                           Column() {
-                            Text(item.name).fontSize(14)
-                            Text(item.shelf + '-' + item.cell).fontSize(14)
-                            Text('库存：' + item.number).fontSize(14)
+                            Text(item.name).fontSize(16).fontWeight(500).maxLines(2).textOverflow({ overflow: TextOverflow.Ellipsis })
+                            Text(item.shelf + '-' + item.cell).fontSize(14).fontColor('#666').margin({ top: 4 })
+                            Text('库存：' + item.number).fontSize(14).fontColor('#666').margin({ top: 4 })
                           }
                         }
                         Column().alignItems(HorizontalAlign.End) {
                           Row() {
                             Text(this.goodsStatus ? (item.status || '') : (this.isGoodsSelected(item.id) ? '已选择' : (item.status || '')))
                               .fontSize(14)
-                              .fontColor(this.goodsStatus ? 'red' : (this.isGoodsSelected(item.id) ? '#007dfe' : 'red'))
-                            Image($r('app.media.youjiantou')).width(14)
+                              .fontColor(this.goodsStatus ? '#FF4D4F' : (this.isGoodsSelected(item.id) ? '#007DFF' : '#FF4D4F'))
+                              .fontWeight(500)
+                            Image($r('app.media.youjiantou')).width(14).height(14).fillColor('#999')
                           }
-                          Text('￥' + item.price).fontSize(14)
+                          Text('￥' + item.price).fontSize(18).fontColor('#FF6B00').fontWeight(600).margin({ top: 8 })
                         }
-                      }
-                      .height(60)
+                      }.height(70)
 
                       if (!this.goodsStatus) {
                         Row({ space: 12 }) {
                           Button('-')
-                            .width(32)
-                            .height(32)
+                            .width(36)
+                            .height(36)
+                            .fontSize(20)
                             .fontColor('#fff')
-                            .borderRadius(16)
-                            .backgroundColor('#007dfe')
+                            .borderRadius(18)
+                            .backgroundColor('#007DFF')
                             .enabled(this.getQuantity(item.id) > 0 && !this.submitLoading)
                             .opacity(this.getQuantity(item.id) > 0 ? 1 : 0.4)
                             .onClick(() => {
                               this.adjustQuantity(item, -1)
                             })
                           Text(this.getQuantity(item.id).toString())
-                            .fontSize(16)
+                            .fontSize(18)
+                            .fontWeight(600)
+                            .width(40)
+                            .textAlign(TextAlign.Center)
                           Button('+')
-                            .width(32)
-                            .height(32)
+                            .width(36)
+                            .height(36)
+                            .fontSize(20)
                             .fontColor('#fff')
-                            .borderRadius(16)
-                            .backgroundColor('#007dfe')
+                            .borderRadius(18)
+                            .backgroundColor('#007DFF')
                             .enabled(!this.submitLoading)
                             .onClick(() => {
                               this.adjustQuantity(item, 1)
                             })
                           Text(`本次补货：${this.getQuantity(item.id)}件`).fontSize(14).fontColor('#666')
                         }
-                        .margin({ top: 12 })
+                        .margin({ top: 16 })
                       }
                     }
-                    .backgroundColor(this.isGoodsSelected(item.id) ? '#e6f2ff' : '#fff')
+                    .backgroundColor(this.isGoodsSelected(item.id) ? '#E6F7FF' : '#fff')
                     .width('100%')
-                    .padding(10)
-                    .borderRadius(4)
+                    .padding(16)
+                    .borderRadius(16)
+                    .shadow({ radius: 8, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 2 })
                     .onClick(() => {
                       if (this.goodsStatus) {
                         router.pushUrl({ url: 'pages/merchant/goodsDetail', params: { mode: 'edit', id: item.id } })
