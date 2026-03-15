@@ -75,7 +75,9 @@ export struct notice {
           // this.tagRead()
           this.dialogController.open()
         })
-        Text(this.userType == '1'?'清空':'一键已读').fontSize(12)
+        Text(this.userType == '1'?'清空':'一键已读')
+          .fontSize(12)
+
       }
       .onClick(() => {
         // 调用方法一键已读
