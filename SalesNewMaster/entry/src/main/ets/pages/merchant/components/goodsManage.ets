@@ -110,28 +110,28 @@ export struct goodsManage {
                   ListItem() {
                     Column() {
                       Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
-                        Row() {
-                            Image(item.pictureUrl).width(70).height(70).borderRadius(12).margin({ right: 12 })
-                            Column() {
-                              Text(item.name).fontSize(16).fontWeight(500).maxLines(2).textOverflow({ overflow: TextOverflow.Ellipsis })
-                              Text(item.shelf + '-' + item.cell).fontSize(14).fontColor('#666').margin({ top: 4 })
-                              Text('库存：' + item.number).fontSize(14).fontColor('#666').margin({ top: 4 })
-                            }
-                          }.alignItems(VerticalAlign.Center)
-                        Column() {
+                        Row().alignItems(VerticalAlign.Center) {
+                          Image(item.pictureUrl).width(70).height(70).borderRadius(12).objectFit(ImageFit.Cover).margin({ right: 12 })
+                          Column() {
+                            Text(item.name).fontSize(16).fontWeight(500).maxLines(2).textOverflow({ overflow: TextOverflow.Ellipsis })
+                            Text(item.shelf + '-' + item.cell).fontSize(14).fontColor('#666').margin({ top: 4 })
+                            Text('库存：' + item.number).fontSize(14).fontColor('#666').margin({ top: 4 })
+                          }
+                        }
+                        Column().alignItems(HorizontalAlign.End) {
                           Row() {
                             Text(this.goodsStatus ? (item.status || '') : (this.isGoodsSelected(item.id) ? '已选择' : (item.status || '')))
                               .fontSize(14)
                               .fontColor(this.goodsStatus ? '#FF4D4F' : (this.isGoodsSelected(item.id) ? '#007DFF' : '#FF4D4F'))
                               .fontWeight(500)
-                            Image($r('app.media.youjiantou')).width(14).height(14)
+                            Image($r('app.media.youjiantou')).width(14).height(14).fillColor('#999')
                           }
                           Text('￥' + item.price).fontSize(18).fontColor('#FF6B00').fontWeight(600).margin({ top: 8 })
-                        }.alignItems(HorizontalAlign.End)
+                        }
                       }.height(70)
 
                       if (!this.goodsStatus) {
-                        Row() {
+                        Row({ space: 12 }) {
                           Button('-')
                             .width(36)
                             .height(36)
@@ -144,13 +144,11 @@ export struct goodsManage {
                             .onClick(() => {
                               this.adjustQuantity(item, -1)
                             })
-                            .margin({ right: 12 })
                           Text(this.getQuantity(item.id).toString())
                             .fontSize(18)
                             .fontWeight(600)
                             .width(40)
                             .textAlign(TextAlign.Center)
-                            .margin({ right: 12 })
                           Button('+')
                             .width(36)
                             .height(36)
@@ -171,6 +169,7 @@ export struct goodsManage {
                     .width('100%')
                     .padding(16)
                     .borderRadius(16)
+                    .shadow({ radius: 8, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 2 })
                     .onClick(() => {
                       if (this.goodsStatus) {
                         router.pushUrl({ url: 'pages/merchant/goodsDetail', params: { mode: 'edit', id: item.id } })

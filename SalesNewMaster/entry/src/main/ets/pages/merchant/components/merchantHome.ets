@@ -38,6 +38,8 @@ export struct merchantHome {
     .borderWidth({ left: 4 })
     .padding({ left: 12 })
     .borderColor('#FF6B00')
+    .fontWeight(600)
+    .fontSize(18)
   }
 
   @Styles
@@ -47,6 +49,7 @@ export struct merchantHome {
     .padding(16)
     .width('100%')
     .margin({ bottom: 16 })
+    .shadow({ radius: 12, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 4 })
   }
 
   @Builder
@@ -86,7 +89,7 @@ export struct merchantHome {
       Scroll(this.scrollerForScroll) {
         Column() {
           Column() {
-            Text('销售统计').titleSameStyle().fontSize(18).fontWeight(600)
+            Text('销售统计').titleSameStyle()
             Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
               Flex() {
                 Image($r('app.media.app_icon')).width(60).height(60).borderRadius(30).margin({ right: 12 })
@@ -109,7 +112,7 @@ export struct merchantHome {
 
           Column() {
             Flex({ alignItems: ItemAlign.Center, justifyContent: FlexAlign.SpaceBetween }) {
-              Text('销量排行').titleSameStyle().width('70%').fontSize(18).fontWeight(600)
+              Text('销量排行').titleSameStyle().width('70%')
               Select([{ value: "top3", }, { value: "bottom3" }])
                 .selected(0)
                 .value('top3')
@@ -144,7 +147,7 @@ export struct merchantHome {
           }.cardSameStyle().height(220)
 
           Column() {
-            Text(`补货预警（${this.replenishList.length || 0}）`).titleSameStyle().fontSize(18).fontWeight(600)
+            Text(`补货预警（${this.replenishList.length || 0}）`).titleSameStyle()
             if (this.replenishList.length > 0) {
               Swiper(this.swiperController) {
                 ForEach(this.replenishList, (item: swiperListType) => {
@@ -172,16 +175,19 @@ export struct merchantHome {
               .indicator(true)
               .itemSpace(12)
               .indicatorStyle({
-                bottom: 8
-              })
-              .height(120)
+                bottom:8,
+                itemWidth: 6,
+                itemHeight: 6,
+                selectedItemWidth: 16,
+                selectedItemHeight: 6
+              }) .height(120)
             } else {
               this.empty()
             }
           }.cardSameStyle().height(160)
 
           Column() {
-            Text(`设备异常（${this.deviceWarnList.length || 0}）`).titleSameStyle().fontSize(18).fontWeight(600)
+            Text(`设备异常（${this.deviceWarnList.length || 0}）`).titleSameStyle()
             if (this.deviceWarnList.length > 0) {
               Swiper(this.swiperController) {
                 ForEach(this.deviceWarnList, (item: swiperListType) => {
@@ -232,7 +238,11 @@ export struct merchantHome {
               .indicator(true)
               .itemSpace(12)
               .indicatorStyle({
-                bottom: 8
+                bottom:8,
+                itemWidth: 6,
+                itemHeight: 6,
+                selectedItemWidth: 16,
+                selectedItemHeight: 6
               })
             } else {
               this.empty()
@@ -255,7 +265,7 @@ export struct merchantHome {
   getSaleSort() {
     //销量排行
     merchantAPI.SaleRankApi({ condition: this.condition }).then((res: SaleRankResType) => {
-      console.log('销量排行', this.condition, JSON.stringify(res))
+      console.log('销量排行', this.condition , JSON.stringify(res),)
       if (res.success) {
         this.saleSort = []
         this.saleSort = res.data
