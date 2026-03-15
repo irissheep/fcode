@@ -135,45 +135,99 @@ export struct my {
         }.width('100%').backgroundColor('#ffffff').padding(10).margin({ bottom: 20 })
 
         // 列表
-        List() {
-          ForEach(this.cardList, (item: cardListItemType) => {
-            ListItem() {
-              Row() {
-                Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
-                  Row() {
-                    Image(item.icon).width(26).margin({ right: 6 })
-                    Text(item.title)
-                  }
+        // List() {
+        //   ForEach(this.cardList, (item: cardListItemType) => {
+        //     ListItem() {
+        //       Row() {
+        //         Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
+        //           Row() {
+        //             Image(item.icon).width(26).margin({ right: 6 })
+        //             Text(item.title)
+        //           }
+        //
+        //           Row() {
+        //             if (item.title == '身份识别') {
+        //               Text(this.userInfo.isCertified == 1 ? '已认证' : '未认证')
+        //             }
+        //             if (item.title == '账户余额') {
+        //               Text('￥' + this.balance)
+        //             }
+        //             if (item.title == '身份识别') {
+        //               if (this.userInfo.isCertified != 1) {
+        //                 Image($r('app.media.youjiantou')).width(20)
+        //               }
+        //             } else {
+        //               Image($r('app.media.youjiantou')).width(20)
+        //             }
+        //           }
+        //         }
+        //       }
+        //       .width('100%')
+        //       .height(50)
+        //       .borderWidth({ bottom: 1 })
+        //       .borderColor('gray')
+        //       .padding({ left: 10, right: 10 })
+        //       .backgroundColor('#ffffff')
+        //       .onClick(() => {
+        //         if (item.title == '身份识别' && this.userInfo.isCertified == 1) {
+        //           return
+        //         }
+        //         router.pushUrl({ url: item.path, })
+        //       })
+        //     }
+        //   }, (item: object, index: number) => '' + index)
+        // }
 
-                  Row() {
-                    if (item.title == '身份识别') {
-                      Text(this.userInfo.isCertified == 1 ? '已认证' : '未认证')
+        List() {
+          ForEach(this.cardList, (item: cardListItemType, index: number) => {
+            ListItem() {
+              // 单个卡片容器
+              Column() {
+                Row() {
+                  Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
+                    Row() {
+                      Image(item.icon).width(26).margin({ right: 6 })
+                      Text(item.title)
+                        .fontSize(16)
+                        .fontColor(Color.Black)
                     }
-                    if (item.title == '账户余额') {
-                      Text('￥' + this.balance)
-                    }
-                    if (item.title == '身份识别') {
-                      if (this.userInfo.isCertified != 1) {
+
+                    Row() {
+                      if (item.title == '身份识别') {
+                        Text(this.userInfo.isCertified == 1 ? '已认证' : '未认证')
+                          .fontSize(14)
+                          .fontColor(Color.Gray)
+                      }
+                      if (item.title == '账户余额') {
+                        Text('￥' + this.balance)
+                          .fontSize(14)
+                          .fontColor(Color.Black)
+                      }
+                      if (item.title == '身份识别') {
+                        if (this.userInfo.isCertified != 1) {
+                          Image($r('app.media.youjiantou')).width(20)
+                        }
+                      } else {
                         Image($r('app.media.youjiantou')).width(20)
                       }
-                    } else {
-                      Image($r('app.media.youjiantou')).width(20)
                     }
                   }
                 }
+                .width('100%')
+                .height(50)
+                .padding({ left: 10, right: 10 })
+                .backgroundColor('#ffffffff')
+                .borderRadius(15) // 设置圆角
+                .borderWidth({ bottom: index !== this.cardList.length - 1 ? 1 : 0 }) // 只有非最后一个元素有底部边框
+                .borderColor('gray')
+                .onClick(() => {
+                  if (item.title == '身份识别' && this.userInfo.isCertified == 1) {
+                    return;
+                  }
+                  router.pushUrl({ url: item.path });
+                })
               }
-              .width('100%')
-              .height(50)
-              .borderWidth({ bottom: 1 })
-              .borderColor('gray')
-              .padding({ left: 10, right: 10 })
-              .backgroundColor('#ffffff')
-              .onClick(() => {
-                if (item.title == '身份识别' && this.userInfo.isCertified == 1) {
-                  return
-                }
-                router.pushUrl({ url: item.path, })
-              })
+              .margin({ top: 6, bottom: 6 }) // 设置卡片之间的间距
             }
           }, (item: object, index: number) => '' + index)
         }
