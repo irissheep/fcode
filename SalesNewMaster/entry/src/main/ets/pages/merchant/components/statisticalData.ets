@@ -131,7 +131,8 @@ export struct statisticalData {
     .borderRadius(16)
     .padding(20)
     .margin({ bottom: 20 })
-    .shadow({ radius: 12, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 4 })
+    .borderWidth(1)
+    .borderColor('#E8E8E8')
   }
 
   async aboutToAppear() {

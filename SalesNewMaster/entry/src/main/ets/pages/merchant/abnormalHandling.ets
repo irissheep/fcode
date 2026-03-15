@@ -203,7 +203,8 @@ struct abnormalHandling {
           .padding(16)
           .borderRadius(16)
           .margin({ bottom: 16 })
-          .shadow({ radius: 8, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 2 })
+          .borderWidth(1)
+          .borderColor('#E8E8E8')
 
           Column() {
             Text('照片').fontSize(16).fontWeight(600).margin({ bottom: 12 })
@@ -225,7 +226,8 @@ struct abnormalHandling {
           .borderRadius(16)
           .alignItems(HorizontalAlign.Start)
           .margin({ bottom: 16 })
-          .shadow({ radius: 8, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 2 })
+          .borderWidth(1)
+          .borderColor('#E8E8E8')
 
           Column() {
             Flex({ alignItems: ItemAlign.Center }) {
@@ -250,20 +252,20 @@ struct abnormalHandling {
             }
 
             if (this.radioSelect == '1') {
-              Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center })
-                .width('100%')
-                .height(48)
-                .backgroundColor('#F5F7FA')
-                .borderRadius(8)
-                .padding({ left: 16, right: 16 })
-                .margin({ top: 16 })
-                .onClick(() => {
-                  this.dialogController.open()
-                }) {
+              Flex({ justifyContent: FlexAlign.SpaceBetween, alignItems: ItemAlign.Center }) {
                 Text('客户').fontSize(16).fontWeight(500)
                 Text(this.selectUser ? this.selectUser : '请选择').flexGrow(1).textAlign(TextAlign.End).fontColor(this.selectUser ? '#333' : '#999').margin({ left: 12 })
-                Image($r('app.media.right')).width(16).height(16).fillColor('#999')
+                Image($r('app.media.right')).width(16).height(16)
               }
+              .width('100%')
+              .height(48)
+              .backgroundColor('#F5F7FA')
+              .borderRadius(8)
+              .padding({ left: 16, right: 16 })
+              .margin({ top: 16 })
+              .onClick(() => {
+                this.dialogController.open()
+              })
             }
 
           }
@@ -272,7 +274,8 @@ struct abnormalHandling {
           .padding(16)
           .borderRadius(16)
           .margin({ bottom: 16 })
-          .shadow({ radius: 8, color: 'rgba(0, 0, 0, 0.08)', offsetX: 0, offsetY: 2 })
+          .borderWidth(1)
+          .borderColor('#E8E8E8')
         }
 
         Flex({ justifyContent: FlexAlign.Center }) {
