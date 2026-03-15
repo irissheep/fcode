@@ -58,12 +58,7 @@ export struct home {
                     Text(item.name).textAlign(TextAlign.Start).width('100%')
                     Flex({ justifyContent: FlexAlign.SpaceBetween }) {
                       Text('￥' + item.price).fontColor(Color.Red)
-                      Text('库存:' + item.number).fontColor(Color.White)
-                        .padding({ top: 2, bottom: 0, left: 6, right: 6 })
-                        .margin({bottom: 8})
-                        .backgroundColor('#1698CE')
-                        .zIndex(9)
-                        .borderRadius(10)
+                      Text('库存:' + item.number).fontColor(Color.Orange)
                     }.width('100%').margin({ top: 6 })
                   }.padding(8)
                 }.backgroundColor(Color.White).borderRadius(10).height(220).width('90%')
@@ -103,7 +98,7 @@ export struct home {
     .hideBackButton(true)
     .width('100%')
     .height('100%')
-    .backgroundColor('#ffc4c4c4')
+    .backgroundColor('#f4f9fd')
   }
 
   getGoodsList() {
