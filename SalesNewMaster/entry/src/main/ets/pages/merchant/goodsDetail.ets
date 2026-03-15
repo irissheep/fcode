@@ -129,7 +129,7 @@ struct goodsDetail {
                     },
                   })
                 })
-              Image($r('app.media.youjiantou')).width(16).height(16)
+              Image($r('app.media.youjiantou')).width(16).height(16).fillColor('#999')
             }
           }.sameStyle()
 
@@ -195,7 +195,7 @@ struct goodsDetail {
                   })
                 } else {
                   Flex({ justifyContent: FlexAlign.Center, alignItems: ItemAlign.Center }) {
-                    Image($r('app.media.upload')).width(40).height(40)
+                    Image($r('app.media.upload')).width(40).height(40).fillColor('#999')
                   }
                   .width(80)
                   .height(80)
