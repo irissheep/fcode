@@ -1,7 +1,8 @@
 import router from '@ohos.router'
 import promptAction from '@ohos.promptAction'
 import { homeApi } from '../../api/HomeAPI';
-import { registerResType,loginResType} from '../../typeDeclare/responseType.d'
+import { registerResType, loginResType } from '../../typeDeclare/responseType.d'
+
 @Entry
 @Component
 struct Register {
@@ -9,30 +10,14 @@ struct Register {
   @State password: string = ''
   @State confirmPwd: string = ''
   @State logoScale: number = 1
+
   onPageShow() {
     if (AppStorage.Get('token')) {
-      router.replaceUrl({url:'pages/common/index'})
+      router.replaceUrl({ url: 'pages/common/index' })
     }
-    // 启动logo动画
     this.animateLogo()
   }
 
-  // animateLogo() {
-  //   animateTo({
-  //     duration: 1000,
-  //     curve: Curve.EaseInOut,
-  //     iterations: 1
-  //   }, () => {
-  //     this.logoScale = 1.1
-  //   }, () => {
-  //     animateTo({
-  //       duration: 800,
-  //       curve: Curve.EaseInOut
-  //     }, () => {
-  //       this.logoScale = 1
-  //     })
-  //   })
-  // }
   animateLogo() {
     animateTo({
       duration: 1000,
@@ -40,158 +25,186 @@ struct Register {
       iterations: 1
     }, () => {
       this.logoScale = 1.1;
-
-      // 在第一个动画完成后，启动第二个动画
+    });
+    setTimeout(() => {
       animateTo({
         duration: 800,
         curve: Curve.EaseInOut
       }, () => {
         this.logoScale = 1;
       });
-    });
+    }, 1000);
   }
 
   build() {
+    Stack({ alignContent: Alignment.TopStart }) {
+      // 渐变背景
+      Column()
+        .width('100%')
+        .height('100%')
+        .backgroundColor('#667eea')
 
-    Column() {
-      Navigation() {
-        // logo图标
-        // Image($r("app.media.logo"))
-        //   .width(80)
-        //   .height(80)
-        //   .borderRadius(50)
-        //   .margin({ bottom: 20 ,top: 20})
+      Column()
+        .width('100%')
+        .height('100%')
+        .backgroundColor('#764ba2')
+        .opacity(0.8)
+
+      // 装饰圆形
+      Column()
+        .width(250)
+        .height(250)
+        .borderRadius(125)
+        .backgroundColor('rgba(255, 255, 255, 0.1)')
+        .position({ x: -80, y: -30 })
+
+      Column()
+        .width(180)
+        .height(180)
+        .borderRadius(90)
+        .backgroundColor('rgba(255, 255, 255, 0.08)')
+        .position({ x: 260, y: 450 })
+
+      // 主内容
+      Column() {
+        // 返回按钮
+        Row() {
+          Image($r('app.media.back'))
+            .width(24)
+            .height(24)
+            .fillColor(Color.White)
+            .onClick(() => router.back())
+
+          Text('用户注册')
+            .fontSize(20)
+            .fontWeight(600)
+            .fontColor(Color.White)
+            .margin({ left: 12 })
+        }
+        .width('100%')
+        .padding({ left: 20, right: 20, top: 20 })
+        .margin({ bottom: 20 })
+
+        // Logo
         Image($r("app.media.logo"))
-          .width(100)
-          .height(100)
-          .borderRadius(50)
-          .margin({ bottom: 30 })
+          .width(90)
+          .height(90)
+          .borderRadius(45)
+          .margin({ bottom: 40 })
           .scale({ x: this.logoScale, y: this.logoScale })
           .shadow({
-            radius: 10,
-            color: 'rgba(0, 0, 0, 0.2)',
+            radius: 15,
+            color: 'rgba(0, 0, 0, 0.3)',
             offsetX: 0,
-            offsetY: 5
+            offsetY: 8
           })
 
-        Column() {
-          Column() {
-            TextInput({ placeholder: '请输入账户' })
-              .placeholderColor('rgba(255, 255, 255, 0.7)')
-              .maxLength(20)
-              .inputTextStyle()
-              .onChange((value) => { //绑定变量值
-                this.account = value;
-              })
+        // 注册表单
+        Column({ space: 16 }) {
+          TextInput({ placeholder: '请输入账户' })
+            .placeholderColor('rgba(255, 255, 255, 0.6)')
+            .width('100%')
+            .height(50)
+            .backgroundColor('rgba(255, 255, 255, 0.15)')
+            .borderRadius(25)
+            .padding({ left: 20, right: 20 })
+            .fontColor(Color.White)
+            .onChange((value) => this.account = value)
 
-            TextInput({ placeholder: '请输入密码' })
-              .type(InputType.Password)
-              .placeholderColor('rgba(255, 255, 255, 0.7)')
-              .maxLength(20)
-              .inputTextStyle()
-              .onChange((value) => { //绑定变量值
-                this.password = value;
-              })
-            TextInput({ placeholder: '请输入确认密码' })
-              .type(InputType.Password)
-              .placeholderColor('rgba(255, 255, 255, 0.7)')
-              .maxLength(20)
-              .inputTextStyle()
-              .onChange((value) => { //绑定变量值
-                this.confirmPwd = value;
-              })
+          TextInput({ placeholder: '请输入密码' })
+            .placeholderColor('rgba(255, 255, 255, 0.6)')
+            .type(InputType.Password)
+            .width('100%')
+            .height(50)
+            .backgroundColor('rgba(255, 255, 255, 0.15)')
+            .borderRadius(25)
+            .padding({ left: 20, right: 20 })
+            .fontColor(Color.White)
+            .onChange((value) => this.password = value)
 
+          TextInput({ placeholder: '请输入确认密码' })
+            .placeholderColor('rgba(255, 255, 255, 0.6)')
+            .type(InputType.Password)
+            .width('100%')
+            .height(50)
+            .backgroundColor('rgba(255, 255, 255, 0.15)')
+            .borderRadius(25)
+            .padding({ left: 20, right: 20 })
+            .fontColor(Color.White)
+            .onChange((value) => this.confirmPwd = value)
 
-          }
-
-          Button('注册').width('100%').height(48)
-            .onClick(() => {
-              if (this.account.length > 0 && this.password.length > 0 && this.confirmPwd.length > 0) {
-                this.register() //调用注册逻辑
-              } else {
-                promptAction.showToast({ message: '请完整填写表单！', duration: 2000 })
-              }
+          // 注册按钮
+          Button('注 册')
+            .width('100%')
+            .height(50)
+            .fontSize(18)
+            .fontWeight(600)
+            .fontColor('#667eea')
+            .backgroundColor(Color.White)
+            .borderRadius(25)
+            .margin({ top: 24 })
+            .shadow({
+              radius: 12,
+              color: 'rgba(0, 0, 0, 0.2)',
+              offsetX: 0,
+              offsetY: 6
             })
-        }.width('80%').margin({ top: 50 })
+            .onClick(() => this.register())
+        }
+        .width('80%')
+
+        // 返回登录
+        Text('已有账号？返回登录')
+          .fontColor('rgba(255, 255, 255, 0.8)')
+          .fontSize(14)
+          .margin({ top: 40 })
+          .decoration({ type: TextDecorationType.Underline, color: 'rgba(255, 255, 255, 0.8)' })
+          .onClick(() => router.back())
       }
-      .mode(NavigationMode.Auto)
-      .title('用户注册')
-      .titleMode(NavigationTitleMode.Mini)
+      .width('100%')
+      .height('100%')
+      .alignItems(HorizontalAlign.Center)
     }
     .width('100%')
     .height('100%')
-    // .backgroundColor('#eee')
-    .backgroundColor('#4CAF50')
-
   }
-  // 注册用户
+
   register() {
-    interface  paramsType{
-      account:string
-      password: string
-      confirmPwd: string
-      category:string
+    if (!this.account || !this.password || !this.confirmPwd) {
+      promptAction.showToast({ message: '请完整填写表单', duration: 2000 })
+      return
     }
-    let data:paramsType = {
+    if (this.password !== this.confirmPwd) {
+      promptAction.showToast({ message: '两次密码输入不一致', duration: 2000 })
+      return
+    }
+
+    const data = {
       account: this.account,
       password: this.password,
       confirmPwd: this.confirmPwd,
-      category:'1'
+      category: '1'
     }
 
-
-
-    homeApi.registerApi(data).then((loginResult:registerResType)=>{
-      if(loginResult.success){
-        promptAction.showToast({message:'注册成功',duration:2000})
-
-        homeApi.doLoginApi(data).then((loginResult:loginResType)=>{
-          //登陆成功
-          if(loginResult.success){
-            AppStorage.SetOrCreate('userType',loginResult.data.category)    //存储用户类别
-            AppStorage.SetOrCreate('account',loginResult.data.account)   //存储用户名
-            AppStorage.SetOrCreate('pwd',this.password);
-            AppStorage.SetOrCreate('userId',loginResult.data.id)
-            AppStorage.SetOrCreate('token',loginResult.data.token)//存储登陆token
-
-          }else{
-            promptAction.showToast({message:loginResult.msg,duration:2000})
+    homeApi.registerApi(data).then((res: registerResType) => {
+      if (res.success) {
+        promptAction.showToast({ message: '注册成功', duration: 2000 })
+        // 自动登录
+        homeApi.doLoginApi(data).then((loginRes: loginResType) => {
+          if (loginRes.success) {
+            AppStorage.SetOrCreate('token', loginRes.data.token)
+            AppStorage.SetOrCreate('account', loginRes.data.account)
+            AppStorage.SetOrCreate('userType', loginRes.data.category)
+            AppStorage.SetOrCreate('userId', loginRes.data.id)
+            AppStorage.SetOrCreate('pwd', this.password)
+            router.replaceUrl({ url: 'pages/common/index' })
           }
         })
-        //  跳转到人脸识别
-        setTimeout(()=>{
-          router.pushUrl({
-            url: 'pages/login/facial',
-            params: data
-          })
-        },1500)
-      }else{
-        promptAction.showToast({message:loginResult.msg,duration:2000})
+      } else {
+        promptAction.showToast({ message: res.msg, duration: 3000 })
       }
+    }).catch(() => {
+      promptAction.showToast({ message: '网络错误，请重试', duration: 2000 })
     })
-      .catch((err:Error)=>{
-        console.info('login error'+JSON.stringify(err))
-        promptAction.showToast({message:`系统错误，请稍后再试`,duration:2000})
-      })
-
   }
-}
-
-// @Extend(TextInput) function inputTextStyle() {
-//   .backgroundColor(Color.White)
-//   .height(48)
-//   .margin({ bottom: 20 })
-//   .borderRadius(10)
-// }
-
-@Extend(TextInput)
-function inputTextStyle() {
-  .backgroundColor('rgba(255, 255, 255, 0.2)')
-  .height(52)
-  .margin({ bottom: 20 })
-  .borderRadius(26)
-  .fontSize(16)
-  .fontColor(Color.White)
-  .padding({ left: 20, right: 20 })
-  .border({ width: 1, color: 'rgba(255, 255, 255, 0.3)' })
 }
